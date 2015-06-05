@@ -20,7 +20,7 @@ public class main {
 		
 		System.out.println("Hello Weka!");
 		Instances training = loadFiles("lib/trainSet.arff");
-		Instances test = loadFiles("lib/test.csv");
+		Instances test = loadFiles("lib/test.arff");
 		
 		Classifier[] models = { 
 				new J48(), // a decision tree
@@ -29,9 +29,11 @@ public class main {
 		};
 		
 	
-		PrincipalComponents pc = new PrincipalComponents();
-		pc.buildEvaluator(training);
-		Instances transformed_train = pc.transformedData(training);
+		PrincipalComponents pca = new PrincipalComponents();
+		pca.buildEvaluator(training);
+		Instances transformed_train = pca.transformedData(training);
+		
+		System.out.println("done");
 	}
 
 	private static Instances loadFiles(String address) throws Exception
