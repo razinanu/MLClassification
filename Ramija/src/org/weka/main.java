@@ -10,7 +10,7 @@ public class main {
 		System.out.println("Hello Weka!");
 		Instances trainSet = loadFiles("lib/trainSet.arff");
 		Instances testSet = loadFiles("lib/test.arff");
-		preProcess attSelect = new preProcess();
+		PreProcess attSelect = new PreProcess();
 
 		attSelect.AttributeSelect(trainSet, testSet);
 		
