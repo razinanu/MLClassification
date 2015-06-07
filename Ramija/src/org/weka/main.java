@@ -4,15 +4,18 @@ import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
 public class main {
+	
+	
 
 	public static void main(String[] args) throws Exception {
 
-		System.out.println("Hello Weka!");
-		Instances trainSet = loadFiles("lib/trainSet.arff");
-		Instances testSet = loadFiles("lib/test.arff");
+		
+		 Instances trainSet = loadFiles("lib/trainSet.arff");
+	     Instances testSet = loadFiles("lib/test.arff");
 		PreProcess attSelect = new PreProcess();
 
 		attSelect.AttributeSelect(trainSet, testSet);
+		
 		
 
 	}

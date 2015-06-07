@@ -6,6 +6,9 @@ import weka.filters.unsupervised.attribute.Add;
 import weka.filters.unsupervised.attribute.PrincipalComponents;
 
 public class PreProcess {
+	public Instances newTrain;
+	public Instances newTest;
+	
 
 	public void AttributeSelect(Instances trainSet, Instances testSet) {
 
@@ -14,8 +17,8 @@ public class PreProcess {
 		PrincipalComponents pca = new PrincipalComponents();
 		try {
 			pca.setInputFormat(trainSet);
-			Instances newTrain = Filter.useFilter(trainSet, pca);
-			Instances newTest = Filter.useFilter(newTestSet, pca);
+			newTrain = Filter.useFilter(trainSet, pca);
+			newTest = Filter.useFilter(newTestSet, pca);
 			System.out.println("Number of att in Train: "+newTrain.numAttributes());
 			System.out.println("Number of att in Test: "+newTest.numAttributes());
 //			for (int i = 0; i < newTrain.numAttributes(); i++) {
