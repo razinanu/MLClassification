@@ -13,6 +13,7 @@ import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
 import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.unsupervised.attribute.Add;
 
 public class main {
 
@@ -31,8 +32,26 @@ public class main {
 	
 		PrincipalComponents pca = new PrincipalComponents();
 		pca.buildEvaluator(training);
+//		String[] bla = new String[4];
+//		bla[0] = "-R";
+//		bla[1] = "0.95";
+//		bla[2] = "-A";
+//		bla[3] = "-1";
+//		pca.setOptions(bla);
 		Instances transformed_train = pca.transformedData(training);
+		System.out.println("old: " + training.numAttributes() + " new: " + transformed_train.numAttributes());
 		
+//		String[] arr = pca.getOptions();
+//		for(int i=0; i<arr.length; i++)
+//			System.out.println(pca.getOptions()[i]);
+		
+//		for(int i=0; i< transformed_train.numAttributes(); i++)
+//			System.out.println(transformed_train.attribute(i).name());
+		
+		Add filter = new Add();
+		
+		Instances transformed_test = pca.transformedData(test);
+		System.out.println("old: " + test.numAttributes() + " new: " + transformed_test.numAttributes());
 		System.out.println("done");
 	}
 
@@ -43,7 +62,7 @@ public class main {
 		if (data.classIndex() == -1)
 			data.setClassIndex(data.numAttributes() - 1);
 		
-		System.out.println("loaded files. " + address);
+		System.out.println("loaded files: " + address);
 		return data;
 	}
 	
