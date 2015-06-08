@@ -13,9 +13,11 @@ public class main {
 		
 		 Instances trainSet = loadFiles("lib/trainSet.arff");
 	     Instances testSet = loadFiles("lib/test.arff");
-		//PreProcess attSelect = new PreProcess();
 
-		//attSelect.AttributeSelect(trainSet, testSet);
+		PreProcess attSelect = new PreProcess();
+
+		attSelect.AttributeSelect(trainSet, testSet);
+
 	
 	}
 
