@@ -2,6 +2,7 @@ package org.weka;
 
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.unsupervised.attribute.Add;
 
 public class main {
 	
@@ -12,12 +13,10 @@ public class main {
 		
 		 Instances trainSet = loadFiles("lib/trainSet.arff");
 	     Instances testSet = loadFiles("lib/test.arff");
-		PreProcess attSelect = new PreProcess();
+		//PreProcess attSelect = new PreProcess();
 
-		attSelect.AttributeSelect(trainSet, testSet);
-		
-		
-
+		//attSelect.AttributeSelect(trainSet, testSet);
+	
 	}
 
 	private static Instances loadFiles(String address) throws Exception {
@@ -25,8 +24,8 @@ public class main {
 		Instances data = source.getDataSet();
 		if (data.classIndex() == -1)
 			data.setClassIndex(data.numAttributes() - 1);
-
-		System.out.println("loaded files. " + address);
+		
+		System.out.println("loaded files: " + address);
 		return data;
 	}
 
