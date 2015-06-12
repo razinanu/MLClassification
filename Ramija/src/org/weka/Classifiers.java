@@ -21,7 +21,7 @@ public class Classifiers {
 	public void classifier(Instances trainSet, Instances testSet)
 			throws Exception {
 
-		buildSVMmodel(trainSet,testSet);
+		buildSVMmodel(trainSet, testSet);
 
 		buildDecisionTreemodel(trainSet);
 	}
@@ -62,21 +62,21 @@ public class Classifiers {
 		}
 	}
 
-	private void buildSVMmodel(Instances trainSet,Instances testSet) throws Exception,
-			IOException, FileNotFoundException {
+	private void buildSVMmodel(Instances trainSet, Instances testSet)
+			throws Exception, IOException, FileNotFoundException {
 		Evaluation validationSvm = new Evaluation(trainSet);
 
 		try {
 			LibSVM svmVal = (LibSVM) weka.core.SerializationHelper
 					.read("lib/svm.model");
 
-//			System.out.println("Validation of exiting SVM model... ");
-//			validationSvm.evaluateModel(svmVal, trainSet);
-//
-//			System.out.println(validationSvm.toSummaryString(
-//					"\nResults\n======\n", false));
-			//test the unlabeled data and assign them to one class 
-			 labeleSVMTestSet(testSet, svmVal);
+			// System.out.println("Validation of exiting SVM model... ");
+			// validationSvm.evaluateModel(svmVal, trainSet);
+			//
+			// System.out.println(validationSvm.toSummaryString(
+			// "\nResults\n======\n", false));
+			// test the unlabeled data and assign them to one class
+			labeleSVMTestSet(testSet, svmVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -102,36 +102,37 @@ public class Classifiers {
 
 	private void labeleSVMTestSet(Instances testSet, LibSVM svmVal)
 			throws Exception, IOException {
-		
-		
+
 		testSet.setClassIndex(testSet.numAttributes() - 1);
-		 
-		 // create copy
-		 Instances labeled = new Instances(testSet);
-		 
-		 // label instances
-		 for (int i = 0; i < 5; i++) {
-			 //System.out.println("in foreach!");
-		   double clsLabel = svmVal.classifyInstance(testSet.instance(i));
-		   labeled.instance(i).setClassValue(clsLabel);
-		 }
-		
-		 // save labeled data
-		try{
+
+		// create copy
+		Instances labeled = new Instances(testSet);
+
+		// label instances
+		for (int i = 0; i < 5; i++) {
+			// System.out.println("in foreach!");
+			double clsLabel = svmVal.classifyInstance(testSet.instance(i));
+			labeled.instance(i).setClassValue(clsLabel);
+		}
+
+		// save labeled data
+		try {
 			System.out.println("open the buffer");
-		 BufferedWriter writer = new BufferedWriter(
-		                           new FileWriter("lib/labeled.arff"));
-		 for (int i = 0; i < labeled.numInstances(); i++) {
-					
-					 writer.write(labeled.instance(i).toString());
-					 writer.newLine(); writer.newLine();
-					 
-					 }
-		
-		 //writer.newLine();
-		 writer.flush();
-		 writer.close();
-		}catch (Exception exc) {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(
+					"lib/labeled.arff"));
+			for (int i = 0; i < labeled.numInstances(); i++) {
+
+				writer.write("Instance is" + i);
+				writer.write(labeled.instance(i).toString());
+				writer.newLine();
+				writer.newLine();
+
+			}
+
+			// writer.newLine();
+			writer.flush();
+			writer.close();
+		} catch (Exception exc) {
 			System.out.println("error");
 		}
 	}
