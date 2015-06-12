@@ -4,6 +4,7 @@ import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.unsupervised.attribute.Add;
 
+
 public class main {
 	
 	
@@ -18,7 +19,8 @@ public class main {
 
 		attSelect.AttributeSelect(trainSet, testSet);
 
-	
+		SemiSupervised s = new SemiSupervised();
+		s.classify(trainSet, testSet);
 	}
 
 	private static Instances loadFiles(String address) throws Exception {
