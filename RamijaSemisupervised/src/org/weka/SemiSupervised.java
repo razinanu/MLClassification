@@ -1,9 +1,8 @@
 package org.weka;
 
 import weka.core.Instances;
-import weka.classifiers.collective.functions.LLGC;
 import weka.classifiers.collective.meta.YATSI;
-import weka.classifiers.functions.*;
+import weka.classifiers.collective.meta.CollectiveEM;
 
 public class SemiSupervised {
 
@@ -14,10 +13,10 @@ public class SemiSupervised {
 	
 	public void other_classifier(Instances labeled, Instances unlabeled) throws Exception
 	{
-		LLGC llgc = new LLGC();
+		CollectiveEM em = new CollectiveEM();
 		
-		llgc.buildClassifier(labeled, unlabeled);
-
+		em.buildClassifier(labeled, unlabeled);
+		
 		System.out.println("done");
 		
 		for(int i=0; i<unlabeled.numInstances(); i++)
@@ -27,7 +26,6 @@ public class SemiSupervised {
 	public void classify(Instances labeled, Instances unlabeled) throws Exception
 	{
 		other_classifier(labeled, unlabeled);
-		
 		
 //		System.out.println();
 //	    // configure classifier

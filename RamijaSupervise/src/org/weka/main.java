@@ -18,10 +18,11 @@ public class main {
 		PreProcess attSelect = new PreProcess();
 
 		attSelect.AttributeSelect(trainSet, testSet);
-		Classifiers c= new Classifiers();
-		c.classifier(attSelect.newTrain, attSelect.newTest);
+//		Classifiers c= new Classifiers();
+//		c.classifier(attSelect.newTrain, attSelect.newTest);
 
-	
+		SemiSupervised s = new SemiSupervised();
+		s.classify(attSelect.newTrain, attSelect.newTest);
 	}
 
 	private static Instances loadFiles(String address) throws Exception {
