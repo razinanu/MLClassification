@@ -2,7 +2,6 @@ package org.weka;
 
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
-import weka.filters.unsupervised.attribute.Add;
 
 
 public class main {
@@ -14,10 +13,14 @@ public class main {
 		
 		 Instances trainSet = loadFiles("lib/trainSet.arff");
 	     Instances testSet = loadFiles("lib/test.arff");
+	    
+
 
 		PreProcess attSelect = new PreProcess();
 
 		attSelect.AttributeSelect(trainSet, testSet);
+		Classifiers c= new Classifiers();
+		c.classifier(attSelect.newTrain, attSelect.newTest);
 
 		SemiSupervised s = new SemiSupervised();
 		s.classify(trainSet, testSet);
