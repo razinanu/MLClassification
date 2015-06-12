@@ -1,7 +1,9 @@
 package org.weka;
 
 import weka.core.Instances;
+import weka.classifiers.collective.functions.LLGC;
 import weka.classifiers.collective.meta.YATSI;
+import weka.classifiers.functions.*;
 
 public class SemiSupervised {
 
@@ -10,19 +12,34 @@ public class SemiSupervised {
 		
 	}
 	
-	public void classify(Instances labeled, Instances unlabeled) throws Exception
+	public void other_classifier(Instances labeled, Instances unlabeled) throws Exception
 	{
-		System.out.println();
-	    // configure classifier
-	    YATSI yatsi = new YATSI();
-	    yatsi.setKNN(3);	//k-nearest neighbors
-	    yatsi.setNoWeights(true);
+		LLGC llgc = new LLGC();
+		
+		llgc.buildClassifier(labeled, unlabeled);
 
-//	    // build classifier
-	    yatsi.buildClassifier(labeled, unlabeled);
-//		
+		System.out.println("done");
+		
 		for(int i=0; i<unlabeled.numInstances(); i++)
 			System.out.println(unlabeled.instance(i).classValue());
+	}
+	
+	public void classify(Instances labeled, Instances unlabeled) throws Exception
+	{
+		other_classifier(labeled, unlabeled);
+		
+		
+//		System.out.println();
+//	    // configure classifier
+//	    YATSI yatsi = new YATSI();
+//	    yatsi.setKNN(3);	//k-nearest neighbors
+//	    yatsi.setNoWeights(true);
+//
+////	    // build classifier
+//	    yatsi.buildClassifier(labeled, unlabeled);
+////		
+//		for(int i=0; i<unlabeled.numInstances(); i++)
+//			System.out.println(unlabeled.instance(i).classValue());
 	}
 	
 }
