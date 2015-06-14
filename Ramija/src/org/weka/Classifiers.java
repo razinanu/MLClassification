@@ -33,14 +33,17 @@ public class Classifiers {
 			Classifier clsVal = (Classifier) weka.core.SerializationHelper
 					.read("lib/J48.model");
 
-			System.out.println("Validation of exiting J48 model... ");
+			
+			//Evaluate the classification quality with logloss
+			evaluateModelLogLoss(clsVal, trainSet);
+			System.out.println("Evaluating the exiting J48 model... ");
 			// Evaluate the decision tree model
-			validationJ48.evaluateModel(clsVal, trainSet);
-
-			System.out.println(validationJ48.toSummaryString(
-					"\nResults of J48 classifier\n======\n", false));
-			// predict the label for test data
-			labeleJ48TestSet(testSet, clsVal);
+//			validationJ48.evaluateModel(clsVal, trainSet);
+//
+//			System.out.println(validationJ48.toSummaryString(
+//					"\nResults of J48 classifier\n======\n", false));
+//			// predict the label for test data
+//			labeleJ48TestSet(testSet, clsVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -64,6 +67,30 @@ public class Classifiers {
 			labeleJ48TestSet(testSet, cls);
 
 		}
+	}
+
+	private void evaluateModelLogLoss(Classifier clsVal, Instances trainSet) throws Exception {
+		
+		System.out.println("Evaluating the J48 model with logarithmic loss ... ");
+		 // set class attribute
+		 trainSet.setClassIndex(trainSet.numAttributes() - 1);
+		 
+		 // create copy
+		 Instances labeled = new Instances(trainSet);
+		int sumInstance=0;
+		for (int i=0; i<20;i++){
+			
+			  
+			double value=clsVal.classifyInstance(trainSet.instance(i));
+			 labeled.instance(i).setClassValue(value);
+			System.out.println("predicted value: "+ labeled.classAttribute().value((int) value));
+			
+			System.out.println("original value: "+trainSet.classAttribute().value((int) value));
+           
+			
+			
+		}
+		
 	}
 
 	private void buildSVMmodel(Instances trainSet, Instances testSet)
