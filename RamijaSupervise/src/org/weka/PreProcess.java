@@ -54,10 +54,10 @@ public class PreProcess {
 
 			newTestSet = Filter.useFilter(testSet, filter);
 
-			// for (int i = 0; i < newTestSet.numInstances(); i++) {
-			// newTestSet.instance(i).setValue(newTestSet.numAttributes() - 1,
-			// "?");
-			// }
+			 for (int i = 0; i < newTestSet.numInstances(); i++) {
+			 newTestSet.instance(i).setValue(newTestSet.numAttributes() - 1,
+			 -1);
+			 }
 			// for (int i = 0; i < 5; i++) {
 			// System.out.println("Test: "+newTestSet.instance(i));
 			//

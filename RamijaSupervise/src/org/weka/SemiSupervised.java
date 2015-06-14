@@ -21,11 +21,12 @@ public class SemiSupervised {
 			IBk classifier = new IBk(5);
 			
 			System.out.println("iteration " + iter++ + "(count: " + labeled.numInstances() + " " + unlabeled.numInstances() + ")");
-			classifier.buildClassifier(labeled);
-			System.out.println(".");
-			int random_instance = (int)(Math.random() * (unlabeled.numInstances()-1));
 			
-			classifier.classifyInstance(unlabeled.instance(random_instance));
+			classifier.buildClassifier(labeled);
+
+			int random_instance = (int)(Math.random() * (unlabeled.numInstances()-1));
+			double cl = classifier.classifyInstance(unlabeled.instance(random_instance));
+			unlabeled.instance(random_instance).setClassValue(cl);
 			labeled.add((Instance)unlabeled.instance(random_instance).copy());
 			unlabeled.delete(random_instance);		
 		}
