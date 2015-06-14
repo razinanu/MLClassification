@@ -18,20 +18,23 @@ import weka.core.Instances;
  * \brief This class is for using two different machine learning algorithms to
  * classify the sets.
  * 
- * @param train
- *            set
- * @param test
- *            set
+ * @param Instances
+ *            trainSet
+ * @param Instances
+ *            testSet
  */
 public class Classifiers {
 
 	/**
 	 * \brief classify the train set with two supervised methods.
 	 * 
-	 * The two used methods are J48, which is based on decision trees, and Support Vector Machines.
+	 * The two used methods are J48, which is based on decision trees, and
+	 * Support Vector Machines.
 	 * 
-	 * @param trainSet
-	 * @param testSet
+	 * @param Instances
+	 *            trainSet
+	 * @param Instances
+	 *            testSet
 	 * @throws Exception
 	 */
 	public void classifier(Instances trainSet, Instances testSet)
@@ -52,10 +55,10 @@ public class Classifiers {
 	 * been used. The multi-class logarithmic loss and the evaluation function
 	 * from WEKA library.
 	 * 
-	 * @param train
-	 *            set
-	 * @param test
-	 *            set
+	 * @param Instances
+	 *            trainSet
+	 * @param Instances
+	 *            testSet
 	 */
 	private void buildDecisionTreemodel(Instances trainSet, Instances testSet)
 			throws Exception, IOException, FileNotFoundException {
@@ -77,7 +80,7 @@ public class Classifiers {
 			System.out.println(validationJ48.toSummaryString(
 					"\nResults of decision tree classifier\n======\n", false));
 			// predict the label for test data
-			 labeleJ48TestSet(testSet, clsVal);
+			labeleJ48TestSet(testSet, clsVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -114,10 +117,10 @@ public class Classifiers {
 	 * multi-class logarithmic loss.
 	 * 
 	 * 
+	 * @param Instances
+	 *            trainset
 	 * @param Classifier
-	 * @param train
-	 *            set
-	 * @throws Exception
+	 *            clsVal
 	 */
 	private void evaluateModelLogLoss(Classifier clsVal, Instances trainSet)
 			throws Exception {
@@ -129,6 +132,8 @@ public class Classifiers {
 		double sumQuality = 0;
 		double epsilon = 0.000000000000001;
 		double logPred = 0;
+		
+
 		for (int i = 0; i < trainSet.numInstances(); i++) {
 
 			double value = clsVal.classifyInstance(trainSet.instance(i));
@@ -136,8 +141,11 @@ public class Classifiers {
 			int numClass = findNumberClass(classAtt);
 			double[] preds = clsVal
 					.distributionForInstance(labeled.instance(i));
+
 			double origpredic = preds[numClass];
+
 			logPred = Math.log(Math.max(origpredic, epsilon));
+			
 			sumQuality += logPred;
 
 		}
@@ -147,10 +155,11 @@ public class Classifiers {
 	}
 
 	/**
-	 * \brief convert the class attribute to an integer.
+	 * \brief Convert the class attribute to an integer.
 	 * 
-	 * @param classAtt
-	 * @return
+	 * @param String
+	 *            classAtt
+	 * @return int numClass
 	 */
 	private int findNumberClass(String classAtt) {
 		int numClass = 0;
@@ -199,10 +208,10 @@ public class Classifiers {
 	 * been used. The multi-class logarithmic loss and the evaluation function
 	 * from WEKA library.
 	 * 
-	 * @param train
-	 *            set
-	 * @param test
-	 *            set
+	 * @param Instances
+	 *            trainset
+	 * @param Instances
+	 *            trainset
 	 * @throws Exception
 	 */
 	private void buildSVMmodel(Instances trainSet, Instances testSet)
@@ -218,8 +227,7 @@ public class Classifiers {
 			// loss
 			System.out.print("multi-class logarithmic loss of SVM model is: ");
 			evaluateModelLogLoss(svmVal, trainSet);
-			System.out
-			.print("Evaluate the SVM model...");
+			System.out.print("Evaluate the SVM model...");
 			validationSvm.evaluateModel(svmVal, trainSet);
 
 			System.out.println(validationSvm.toSummaryString(
@@ -228,7 +236,6 @@ public class Classifiers {
 			// test the unlabeled data and assign them to one class
 
 			labeleSVMTestSet(testSet, svmVal);
-
 
 		} catch (FileNotFoundException exp) {
 
@@ -243,8 +250,7 @@ public class Classifiers {
 			// loss
 			System.out.print("multi-class logarithmic loss of SVM model is: ");
 			evaluateModelLogLoss(svm, trainSet);
-			System.out
-			.print("Evaluate the SVM model...");
+			System.out.print("Evaluate the SVM model...");
 			validationSvm.evaluateModel(svm, trainSet);
 			System.out.println(validationSvm.toSummaryString(
 					"\nResults of SVM classifier\n======\n", false));
@@ -265,10 +271,12 @@ public class Classifiers {
 	 * predict the label for each instance in test set and save it in local
 	 * directory
 	 * 
-	 * @param test
-	 *            set
-	 * @param classifier
+	 * @param Instances
+	 *            trainset
+	 * @param Classifier
+	 *            clsVal
 	 * @throws Exception
+	 *             IOException
 	 */
 	private void labeleJ48TestSet(Instances testSet, Classifier clsVal)
 			throws Exception, IOException {
@@ -309,10 +317,12 @@ public class Classifiers {
 	 * It uses the SVM model, which has been build over train set to predict the
 	 * label for each instance in test set and save it in local directory
 	 * 
-	 * @param test
-	 *            set
-	 * @param classifier
+	 * @param Instances
+	 *            trainset
+	 * @param LibSVM
+	 *            svmVal
 	 * @throws Exception
+	 *             IOException
 	 */
 	private void labeleSVMTestSet(Instances testSet, LibSVM svmVal)
 			throws Exception, IOException {
