@@ -131,9 +131,7 @@ public class Classifiers {
 					.distributionForInstance(labeled.instance(i));
 
 			double origpredic = preds[(int)value];
-			
-			System.out.println(origpredic);
-			
+						
 			logPred = Math.log(Math.max(origpredic, epsilon));
 			
 			sumQuality += logPred;
