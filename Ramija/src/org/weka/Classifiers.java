@@ -17,7 +17,8 @@ import weka.core.Instances;
 /**
  * \brief This class is for using two different machine learning algorithms to
  * classify the sets.
- * 
+ * The methods are J48, which is based on decision trees, and
+ * Support Vector Machines.
  * @param Instances
  *            trainSet
  * @param Instances
@@ -25,18 +26,7 @@ import weka.core.Instances;
  */
 public class Classifiers {
 
-	/**
-	 * \brief classify the train set with two supervised methods.
-	 * 
-	 * The two used methods are J48, which is based on decision trees, and
-	 * Support Vector Machines.
-	 * 
-	 * @param Instances
-	 *            trainSet
-	 * @param Instances
-	 *            testSet
-	 * @throws Exception
-	 */
+	
 	public void classifier(Instances trainSet, Instances testSet)
 			throws Exception {
 
@@ -50,7 +40,7 @@ public class Classifiers {
 	 * sets.
 	 * 
 	 * 
-	 * It uses two fold cross validation to classify the train set and build the
+	 * It uses two fold cross validation to classify the train set and builds the
 	 * model. In order to estimate the classification quality, two methods have
 	 * been used. The multi-class logarithmic loss and the evaluation function
 	 * from WEKA library.
@@ -203,7 +193,7 @@ public class Classifiers {
 	 * \brief Building the SVM model to classify the train set.
 	 * 
 	 * 
-	 * It uses two fold cross validation to classify the train set and build the
+	 * It uses two fold cross validation to classify the train set and builds the
 	 * model. In order to estimate the classification quality, two methods have
 	 * been used. The multi-class logarithmic loss and the evaluation function
 	 * from WEKA library.
