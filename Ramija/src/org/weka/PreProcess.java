@@ -67,11 +67,6 @@ public class PreProcess {
 			filter.setInputFormat(testSet);
 			newTestSet = Filter.useFilter(testSet, filter);
 
-//			for (int i = 0; i < newTestSet.numInstances(); i++) {
-//				newTestSet.instance(i).setValue(newTestSet.numAttributes() - 1,
-//						-1);
-//			}
-
 		} catch (Exception exc) {
 			System.out.println(exc.getMessage());
 		}
