@@ -51,9 +51,9 @@ public class PreProcess {
 		try {
 
 			filter.setInputFormat(testSet);
-
 			newTestSet = Filter.useFilter(testSet, filter);
 
+<<<<<<< Updated upstream
 			 for (int i = 0; i < newTestSet.numInstances(); i++) {
 			 newTestSet.instance(i).setValue(newTestSet.numAttributes() - 1,
 			 -1);
@@ -64,6 +64,8 @@ public class PreProcess {
 			// }
 			// System.out.println("Test set num Attribute: "
 			// + newTestSet.numAttributes());
+=======
+>>>>>>> Stashed changes
 		} catch (Exception exc) {
 			System.out.println(exc.getMessage());
 		}
