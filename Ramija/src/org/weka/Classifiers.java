@@ -14,6 +14,16 @@ import weka.classifiers.functions.LibSVM;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 
+/**
+ * \brief This class is for using two different machine learning algorithms to
+ * classify the sets.
+ * 
+ * @param train
+ *            set
+ * @param test
+ *            set
+ */
+
 public class Classifiers {
 
 	public void classifier(Instances trainSet, Instances testSet)
@@ -24,6 +34,21 @@ public class Classifiers {
 		buildDecisionTreemodel(trainSet, testSet);
 	}
 
+	/**
+	 * \brief Building the decision tree model and classify the train and test sets.
+	 * 
+	 * 
+	 * It uses two fold cross validation to classify the train set and build the
+	 * model. In order to estimate the classification quality, two methods have
+	 * been used. The multi-class logarithmic loss and the evaluation function
+	 * from WEKA library.
+	 * 
+	 * @param train
+	 *            set
+	 * @param test
+	 *            set
+	 */
+
 	private void buildDecisionTreemodel(Instances trainSet, Instances testSet)
 			throws Exception, IOException, FileNotFoundException {
 		Evaluation validationJ48 = new Evaluation(trainSet);
@@ -32,32 +57,38 @@ public class Classifiers {
 			// read the model from local file
 			Classifier clsVal = (Classifier) weka.core.SerializationHelper
 					.read("lib/J48.model");
-
-			
-			//Evaluate the classification quality with logloss
+			System.out
+					.print("multi-class logarithmic loss of decision tree is: ");
+			// Evaluate the classification quality with multi-class logarithmic
+			// loss
 			evaluateModelLogLoss(clsVal, trainSet);
-			System.out.println("Evaluating the exiting J48 model... ");
+
 			// Evaluate the decision tree model
-//			validationJ48.evaluateModel(clsVal, trainSet);
-//
-//			System.out.println(validationJ48.toSummaryString(
-//					"\nResults of J48 classifier\n======\n", false));
-//			// predict the label for test data
-//			labeleJ48TestSet(testSet, clsVal);
+			validationJ48.evaluateModel(clsVal, trainSet);
+
+			System.out.println(validationJ48.toSummaryString(
+					"\nResults of decision tree classifier\n======\n", false));
+			// predict the label for test data
+			// labeleJ48TestSet(testSet, clsVal);
 
 		} catch (FileNotFoundException exp) {
 
-			System.out.println("Build the J48 model...");
+			System.out.println("Build the decision tree model...");
 			// Decision tree classifier
 			Classifier cls = new J48();
 			cls.buildClassifier(trainSet);
 			// cross validation using 2 folds to estimate the classification
 			// quality,it picks randomly the instances
 			validationJ48.crossValidateModel(cls, trainSet, 2, new Random(1));
+			System.out
+					.print("multi-class logarithmic loss of decision tree is: ");
+			// Evaluate the classification quality with multi-class logarithmic
+			// loss
+			evaluateModelLogLoss(cls, trainSet);
 			validationJ48.evaluateModel(cls, trainSet);
 			System.out.println(validationJ48.toSummaryString(
-					"\nResults of J48 classifier\n======\n", false));
-			//validationJ48.evaluateModelOnceAndRecordPrediction(cls, testSet);
+					"\nResults of decision tree classifier\n======\n", false));
+			// validationJ48.evaluateModelOnceAndRecordPrediction(cls, testSet);
 			// save the model
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream("lib/J48.model"));
@@ -70,29 +101,98 @@ public class Classifiers {
 		}
 	}
 
-	private void evaluateModelLogLoss(Classifier clsVal, Instances trainSet) throws Exception {
-		
-		System.out.println("Evaluating the J48 model with logarithmic loss ... ");
-		 // set class attribute
-		 trainSet.setClassIndex(trainSet.numAttributes() - 1);
-		 
-		 // create copy
-		 Instances labeled = new Instances(trainSet);
-		int sumInstance=0;
-		for (int i=0; i<20;i++){
-			
-			  
-			double value=clsVal.classifyInstance(trainSet.instance(i));
-			 labeled.instance(i).setClassValue(value);
-			System.out.println("predicted value: "+ labeled.classAttribute().value((int) value));
-			
-			System.out.println("original value: "+trainSet.classAttribute().value((int) value));
-           
-			
-			
+	/**
+	 * \brief Estimating the quality of decision tree classifier based on
+	 * multi-class logarithmic loss.
+	 * 
+	 * 
+	 * @param Classifier
+	 * @param train
+	 *            set
+	 * @throws Exception
+	 */
+
+	private void evaluateModelLogLoss(Classifier clsVal, Instances trainSet)
+			throws Exception {
+
+		// set class attribute
+		trainSet.setClassIndex(trainSet.numAttributes() - 1);
+		Evaluation validationJ48 = new Evaluation(trainSet);
+		// create copy
+		Instances labeled = new Instances(trainSet);
+		double sumQuality = 0;
+		double epsilon = 0.000000000000001;
+		double logPred = 0;
+		for (int i = 0; i < trainSet.numInstances(); i++) {
+
+			double value = clsVal.classifyInstance(trainSet.instance(i));
+			String classAtt = trainSet.classAttribute().value((int) value);
+			int numClass = findNumberClass(classAtt);
+			double[] preds = clsVal
+					.distributionForInstance(labeled.instance(i));
+			double origpredic = preds[numClass];
+			logPred = Math.log(Math.max(origpredic, epsilon));
+			sumQuality += logPred;
+
 		}
-		
+		System.out.println(Double.toString(-1 * sumQuality
+				/ trainSet.numInstances()));
+
 	}
+
+	private int findNumberClass(String classAtt) {
+		int numClass = 0;
+		switch (classAtt) {
+		case "Class_1":
+			numClass = 0;
+			break;
+		case "Class_2":
+			numClass = 1;
+			break;
+		case "Class_3":
+			numClass = 2;
+			break;
+		case "Class_4":
+			numClass = 3;
+			break;
+		case "Class_5":
+			numClass = 4;
+			break;
+		case "Class_6":
+			numClass = 5;
+			break;
+		case "Class_7":
+			numClass = 6;
+			break;
+		case "Class_8":
+			numClass = 7;
+			break;
+		case "Class_9":
+			numClass = 8;
+			break;
+		default:
+			throw new IllegalArgumentException(
+					"Invalid number of class attribute: " + classAtt);
+
+		}
+		return numClass;
+	}
+
+	/**
+	 * \brief Building the SVM model to classify the train set.
+	 * 
+	 * 
+	 * It uses two fold cross validation to classify the train set and build the
+	 * model. In order to estimate the classification quality, two methods have
+	 * been used. The multi-class logarithmic loss and the evaluation function
+	 * from WEKA library.
+	 * 
+	 * @param train
+	 *            set
+	 * @param test
+	 *            set
+	 * @throws Exception
+	 */
 
 	private void buildSVMmodel(Instances trainSet, Instances testSet)
 			throws Exception, IOException, FileNotFoundException {
@@ -103,15 +203,18 @@ public class Classifiers {
 			// read the model from local file
 			LibSVM svmVal = (LibSVM) weka.core.SerializationHelper
 					.read("lib/svm.model");
+			// Evaluate the classification quality with multi-class logarithmic
+			// loss
+			System.out.print("multi-class logarithmic loss of SVM model is: ");
+			evaluateModelLogLoss(svmVal, trainSet);
 
-			// System.out.println("Validation of exiting SVM model... ");
-			// validationSvm.evaluateModel(svmVal, trainSet);
-			//
-			// System.out.println(validationSvm.toSummaryString(
-			// "\nResults of SVM classifier\n======\n", false));
+			validationSvm.evaluateModel(svmVal, trainSet);
+
+			System.out.println(validationSvm.toSummaryString(
+					"\nResults of SVM classifier\n======\n", false));
 
 			// test the unlabeled data and assign them to one class
-			// labeleSVMTestSet(testSet, svmVal);
+			//labeleSVMTestSet(testSet, svmVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -122,6 +225,10 @@ public class Classifiers {
 			// // cross validation using 2 folds to estimate the classification
 			// // quality,it picks randomly the instances
 			validationSvm.crossValidateModel(svm, trainSet, 2, new Random(1));
+			// Evaluate the classification quality with multi-class logarithmic
+			// loss
+			System.out.print("multi-class logarithmic loss of SVM model is: ");
+			evaluateModelLogLoss(svm, trainSet);
 			validationSvm.evaluateModel(svm, trainSet);
 			System.out.println(validationSvm.toSummaryString(
 					"\nResults of SVM classifier\n======\n", false));
@@ -134,7 +241,16 @@ public class Classifiers {
 
 		}
 	}
-
+	/**
+	 * \brief Predict label class for test set. 
+	 * 
+	 * It uses the decision tree model, which has been build over train set to predict the label for each instance in test set and save it in local directory
+	 * 
+	 * @param test
+	 *            set
+	 * @param classifier
+	 * @throws Exception 
+	 */
 	private void labeleJ48TestSet(Instances testSet, Classifier clsVal)
 			throws Exception, IOException {
 
@@ -167,6 +283,16 @@ public class Classifiers {
 		writer.close();
 
 	}
+	/**
+	 * \brief Predict label class for test set. 
+	 * 
+	 * It uses the SVM model, which has been build over train set to predict the label for each instance in test set and save it in local directory
+	 * 
+	 * @param test
+	 *            set
+	 * @param classifier
+	 * @throws Exception 
+	 */
 
 	private void labeleSVMTestSet(Instances testSet, LibSVM svmVal)
 			throws Exception, IOException {

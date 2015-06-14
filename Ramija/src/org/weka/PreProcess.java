@@ -7,9 +7,24 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Add;
 import weka.filters.unsupervised.attribute.PrincipalComponents;
 
+/**
+ * \brief This class is for analyzing the train and test sets for selecting an appropriate subset of the attribute 
+ * @param train set
+ * @param test set
+ */
 public class PreProcess {
 	public Instances newTrain;
 	public Instances newTest;
+	/**
+	 * \brief Select an appropriate subset of the attributes based on Principal Component Analysis.
+	 * 
+	 * convert a set of possibly correlated attributes into a set of values of linearly uncorrelated attributes
+	 * This process will be done for both train set and test set
+	 * 
+	 * 
+	 * @param train set
+	 * @param test set
+	 */
 
 	public void AttributeSelect(Instances trainSet, Instances testSet) {
 
@@ -29,6 +44,15 @@ public class PreProcess {
 			System.out.println(exc.getMessage());
 		}
 	}
+	/**
+	 * \brief Add the class attribute to the test set. 
+	 * 
+	 * To have same attribute analyze with PCA both train and test sets must contain same number of attributes. 
+	 * As the test set doesn't contains the class attribute, it adds just a new column "class" with empty value to test set.
+	
+	 * @param test set
+	 * @throws Exception
+	 */
 
 	public Instances addClassinTestSet(Instances testSet) {
 
