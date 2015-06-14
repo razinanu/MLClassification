@@ -267,7 +267,7 @@ public class Classifiers {
 	/**
 	 * \brief Predict label class for test set.
 	 * 
-	 * It uses the decision tree model, which has been build over train set to
+	 * It uses the decision tree model, which has been built over train set to
 	 * predict the label for each instance in test set and save it in local
 	 * directory
 	 * 
@@ -314,7 +314,7 @@ public class Classifiers {
 	/**
 	 * \brief Predict label class for test set.
 	 * 
-	 * It uses the SVM model, which has been build over train set to predict the
+	 * It uses the SVM model, which has been built over train set to predict the
 	 * label for each instance in test set and save it in local directory
 	 * 
 	 * @param Instances
