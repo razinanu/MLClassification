@@ -21,8 +21,8 @@ public class main {
 		Classifiers c= new Classifiers();
 		c.classifier(attSelect.newTrain, attSelect.newTest);
 
-//		SemiSupervised s = new SemiSupervised();
-//		s.classify(attSelect.newTrain, attSelect.newTest);
+		SemiSupervised s = new SemiSupervised();
+		s.classify(attSelect.newTrain, attSelect.newTest);
 	}
 
 	private static Instances loadFiles(String address) throws Exception {
