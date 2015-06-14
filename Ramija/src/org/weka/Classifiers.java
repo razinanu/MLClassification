@@ -35,7 +35,8 @@ public class Classifiers {
 	}
 
 	/**
-	 * \brief Building the decision tree model and classify the train and test sets.
+	 * \brief Building the decision tree model and classify the train and test
+	 * sets.
 	 * 
 	 * 
 	 * It uses two fold cross validation to classify the train set and build the
@@ -207,14 +208,15 @@ public class Classifiers {
 			// loss
 			System.out.print("multi-class logarithmic loss of SVM model is: ");
 			evaluateModelLogLoss(svmVal, trainSet);
-
+			System.out
+			.print("Evaluate the SVM model...");
 			validationSvm.evaluateModel(svmVal, trainSet);
 
 			System.out.println(validationSvm.toSummaryString(
 					"\nResults of SVM classifier\n======\n", false));
 
 			// test the unlabeled data and assign them to one class
-			//labeleSVMTestSet(testSet, svmVal);
+			// labeleSVMTestSet(testSet, svmVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -229,6 +231,8 @@ public class Classifiers {
 			// loss
 			System.out.print("multi-class logarithmic loss of SVM model is: ");
 			evaluateModelLogLoss(svm, trainSet);
+			System.out
+			.print("Evaluate the SVM model...");
 			validationSvm.evaluateModel(svm, trainSet);
 			System.out.println(validationSvm.toSummaryString(
 					"\nResults of SVM classifier\n======\n", false));
@@ -241,15 +245,18 @@ public class Classifiers {
 
 		}
 	}
+
 	/**
-	 * \brief Predict label class for test set. 
+	 * \brief Predict label class for test set.
 	 * 
-	 * It uses the decision tree model, which has been build over train set to predict the label for each instance in test set and save it in local directory
+	 * It uses the decision tree model, which has been build over train set to
+	 * predict the label for each instance in test set and save it in local
+	 * directory
 	 * 
 	 * @param test
 	 *            set
 	 * @param classifier
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	private void labeleJ48TestSet(Instances testSet, Classifier clsVal)
 			throws Exception, IOException {
@@ -283,15 +290,17 @@ public class Classifiers {
 		writer.close();
 
 	}
+
 	/**
-	 * \brief Predict label class for test set. 
+	 * \brief Predict label class for test set.
 	 * 
-	 * It uses the SVM model, which has been build over train set to predict the label for each instance in test set and save it in local directory
+	 * It uses the SVM model, which has been build over train set to predict the
+	 * label for each instance in test set and save it in local directory
 	 * 
 	 * @param test
 	 *            set
 	 * @param classifier
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 
 	private void labeleSVMTestSet(Instances testSet, LibSVM svmVal)
