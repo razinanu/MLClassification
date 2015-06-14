@@ -124,16 +124,16 @@ public class Classifiers {
 		double logPred = 0;
 		
 
-		for (int i = 0; i < trainSet.numInstances(); i++) {
-
-			double value = clsVal.classifyInstance(trainSet.instance(i));
-			String classAtt = trainSet.classAttribute().value((int) value);
-			int numClass = findNumberClass(classAtt);
+		for (int i = 0; i < trainSet.numInstances(); i++)
+		{
+			double value = trainSet.instance(i).classValue();
 			double[] preds = clsVal
 					.distributionForInstance(labeled.instance(i));
 
-			double origpredic = preds[numClass];
-
+			double origpredic = preds[(int)value];
+			
+			System.out.println(origpredic);
+			
 			logPred = Math.log(Math.max(origpredic, epsilon));
 			
 			sumQuality += logPred;
@@ -142,51 +142,6 @@ public class Classifiers {
 		System.out.println(Double.toString(-1 * sumQuality
 				/ trainSet.numInstances()));
 
-	}
-
-	/**
-	 * \brief Convert the class attribute to an integer.
-	 * 
-	 * @param String
-	 *            classAtt
-	 * @return int numClass
-	 */
-	private int findNumberClass(String classAtt) {
-		int numClass = 0;
-		switch (classAtt) {
-		case "Class_1":
-			numClass = 0;
-			break;
-		case "Class_2":
-			numClass = 1;
-			break;
-		case "Class_3":
-			numClass = 2;
-			break;
-		case "Class_4":
-			numClass = 3;
-			break;
-		case "Class_5":
-			numClass = 4;
-			break;
-		case "Class_6":
-			numClass = 5;
-			break;
-		case "Class_7":
-			numClass = 6;
-			break;
-		case "Class_8":
-			numClass = 7;
-			break;
-		case "Class_9":
-			numClass = 8;
-			break;
-		default:
-			throw new IllegalArgumentException(
-					"Invalid number of class attribute: " + classAtt);
-
-		}
-		return numClass;
 	}
 
 	/**
