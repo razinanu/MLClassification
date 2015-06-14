@@ -1,7 +1,8 @@
 package org.weka;
 
+import weka.classifiers.lazy.IBk;
+import weka.core.Instance;
 import weka.core.Instances;
-import weka.classifiers.collective.meta.YATSI;
 
 public class SemiSupervised {
 
@@ -12,19 +13,30 @@ public class SemiSupervised {
 	
 	public void classify(Instances labeled, Instances unlabeled) throws Exception
 	{
-	    // configure classifier
-	    YATSI yatsi = new YATSI();
-	    yatsi.setKNN(10);	//k-nearest neighbors
-	    yatsi.setNoWeights(true);
-
-	    
-	    
-//	    // build classifier
-	    yatsi.buildClassifier(labeled, unlabeled);
-//		
-		for(int i=0; i<unlabeled.numInstances(); i++)
-			System.out.println(unlabeled.instance(i).classValue());
+		System.out.println("start semi-supervised classification...");
 		
+		int iter = 0;
+		while(unlabeled.numInstances() > 0)
+		{
+			IBk classifier = new IBk(5);
+			
+			System.out.println("iteration " + iter++ + " (count: " + labeled.numInstances() + " " + unlabeled.numInstances() + ")");
+			
+			classifier.buildClassifier(labeled);
+
+			int random_instance = (int)(Math.random() * (unlabeled.numInstances()-1));
+			double cl = classifier.classifyInstance(unlabeled.instance(random_instance));
+			unlabeled.instance(random_instance).setClassValue(cl);
+			labeled.add((Instance)unlabeled.instance(random_instance).copy());
+			unlabeled.delete(random_instance);		
+		}
+		
+		for(int i=0; i<labeled.numInstances(); i++)
+		{
+			System.out.println(labeled.instance(i).classValue());
+		}
 	}
+	
+	
 	
 }

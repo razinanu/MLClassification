@@ -3,7 +3,6 @@ package org.weka;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
-
 public class main {
 	
 	
@@ -22,8 +21,8 @@ public class main {
 		Classifiers c= new Classifiers();
 		c.classifier(attSelect.newTrain, attSelect.newTest);
 
-		SemiSupervised s = new SemiSupervised();
-		s.classify(trainSet, testSet);
+//		SemiSupervised s = new SemiSupervised();
+//		s.classify(attSelect.newTrain, attSelect.newTest);
 	}
 
 	private static Instances loadFiles(String address) throws Exception {

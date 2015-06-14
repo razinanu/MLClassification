@@ -21,11 +21,11 @@ public class Classifiers {
 
 		buildSVMmodel(trainSet, testSet);
 
-		buildDecisionTreemodel(trainSet,testSet);
+		buildDecisionTreemodel(trainSet, testSet);
 	}
 
-	private void buildDecisionTreemodel(Instances trainSet,Instances testSet) throws Exception,
-			IOException, FileNotFoundException {
+	private void buildDecisionTreemodel(Instances trainSet, Instances testSet)
+			throws Exception, IOException, FileNotFoundException {
 		Evaluation validationJ48 = new Evaluation(trainSet);
 		try {
 
@@ -36,10 +36,10 @@ public class Classifiers {
 			System.out.println("Validation of exiting J48 model... ");
 			// Evaluate the decision tree model
 			validationJ48.evaluateModel(clsVal, trainSet);
-            
+
 			System.out.println(validationJ48.toSummaryString(
 					"\nResults of J48 classifier\n======\n", false));
-			//predict the label for test data 
+			// predict the label for test data
 			labeleJ48TestSet(testSet, clsVal);
 
 		} catch (FileNotFoundException exp) {
@@ -54,13 +54,13 @@ public class Classifiers {
 			validationJ48.evaluateModel(cls, trainSet);
 			System.out.println(validationJ48.toSummaryString(
 					"\nResults of J48 classifier\n======\n", false));
-			//save the model
+			// save the model
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream("lib/J48.model"));
 			oos.writeObject(cls);
 			oos.flush();
 			oos.close();
-			//predict the label for test data 
+			// predict the label for test data
 			labeleJ48TestSet(testSet, cls);
 
 		}
@@ -71,21 +71,19 @@ public class Classifiers {
 		Evaluation validationSvm = new Evaluation(trainSet);
 
 		try {
-			
-			
+
 			// read the model from local file
 			LibSVM svmVal = (LibSVM) weka.core.SerializationHelper
 					.read("lib/svm.model");
-			System.out.println("Validation of exiting J48 model... ");
 
 			// System.out.println("Validation of exiting SVM model... ");
 			// validationSvm.evaluateModel(svmVal, trainSet);
 			//
 			// System.out.println(validationSvm.toSummaryString(
 			// "\nResults of SVM classifier\n======\n", false));
-			
+
 			// test the unlabeled data and assign them to one class
-			//labeleSVMTestSet(testSet, svmVal);
+			// labeleSVMTestSet(testSet, svmVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -108,14 +106,12 @@ public class Classifiers {
 
 		}
 	}
-	
+
 	private void labeleJ48TestSet(Instances testSet, Classifier clsVal)
 			throws Exception, IOException {
 
 		testSet.setClassIndex(testSet.numAttributes() - 1);
 
-		// create copy
-		Instances labeled = new Instances(testSet);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(
 				"lib/J48labeled.csv"));
 
@@ -128,16 +124,16 @@ public class Classifiers {
 			// get the predicted probabilities
 			double[] prediction = clsVal.distributionForInstance(testSet
 					.instance(i));
-			// output predictions
 
-			writer.write(Integer.toString(i+1));
+			writer.write(Integer.toString(i + 1));
+			// output predictions
 			for (int c = 0; c < prediction.length; c++) {
 				writer.write(",");
 				writer.write(Double.toString(prediction[c]));
-				 
+
 			}
 			writer.newLine();
-     
+
 		}
 		writer.flush();
 		writer.close();
@@ -149,8 +145,6 @@ public class Classifiers {
 
 		testSet.setClassIndex(testSet.numAttributes() - 1);
 
-		// create copy
-		Instances labeled = new Instances(testSet);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(
 				"lib/SVMlabeled.csv"));
 
@@ -165,14 +159,14 @@ public class Classifiers {
 					.instance(i));
 			// output predictions
 
-			writer.write(Integer.toString(i+1));
+			writer.write(Integer.toString(i + 1));
 			for (int c = 0; c < prediction.length; c++) {
 				writer.write(",");
 				writer.write(Double.toString(prediction[c]));
-				 
+
 			}
 			writer.newLine();
-     
+
 		}
 		writer.flush();
 		writer.close();

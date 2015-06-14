@@ -26,15 +26,6 @@ public class PreProcess {
 			System.out.println("Number of att in Test: "
 					+ newTest.numAttributes());
 
-			// for (int i = 0; i < newTrain.numAttributes(); i++) {
-			// System.out.println("Train: "+newTrain.attribute(i));
-			//
-			// }
-			// for (int i = 0; i < newTest.numAttributes(); i++) {
-			// System.out.println("Test: "+newTest.attribute(i));
-			//
-			// }
-
 		} catch (Exception exc) {
 			System.out.println(exc.getMessage());
 		}
@@ -53,19 +44,11 @@ public class PreProcess {
 			filter.setInputFormat(testSet);
 			newTestSet = Filter.useFilter(testSet, filter);
 
-<<<<<<< Updated upstream
-			 for (int i = 0; i < newTestSet.numInstances(); i++) {
-			 newTestSet.instance(i).setValue(newTestSet.numAttributes() - 1,
-			 -1);
-			 }
-			// for (int i = 0; i < 5; i++) {
-			// System.out.println("Test: "+newTestSet.instance(i));
-			//
-			// }
-			// System.out.println("Test set num Attribute: "
-			// + newTestSet.numAttributes());
-=======
->>>>>>> Stashed changes
+//			for (int i = 0; i < newTestSet.numInstances(); i++) {
+//				newTestSet.instance(i).setValue(newTestSet.numAttributes() - 1,
+//						-1);
+//			}
+
 		} catch (Exception exc) {
 			System.out.println(exc.getMessage());
 		}
