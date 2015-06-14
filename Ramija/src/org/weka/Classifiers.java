@@ -23,9 +23,17 @@ import weka.core.Instances;
  * @param test
  *            set
  */
-
 public class Classifiers {
 
+	/**
+	 * \brief classify the train set with two supervised methods.
+	 * 
+	 * The two used methods are J48, which is based on decision trees, and Support Vector Machines.
+	 * 
+	 * @param trainSet
+	 * @param testSet
+	 * @throws Exception
+	 */
 	public void classifier(Instances trainSet, Instances testSet)
 			throws Exception {
 
@@ -48,7 +56,6 @@ public class Classifiers {
 	 * @param test
 	 *            set
 	 */
-
 	private void buildDecisionTreemodel(Instances trainSet, Instances testSet)
 			throws Exception, IOException, FileNotFoundException {
 		Evaluation validationJ48 = new Evaluation(trainSet);
@@ -69,7 +76,7 @@ public class Classifiers {
 			System.out.println(validationJ48.toSummaryString(
 					"\nResults of decision tree classifier\n======\n", false));
 			// predict the label for test data
-			// labeleJ48TestSet(testSet, clsVal);
+			 labeleJ48TestSet(testSet, clsVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -111,7 +118,6 @@ public class Classifiers {
 	 *            set
 	 * @throws Exception
 	 */
-
 	private void evaluateModelLogLoss(Classifier clsVal, Instances trainSet)
 			throws Exception {
 
@@ -140,6 +146,12 @@ public class Classifiers {
 
 	}
 
+	/**
+	 * \brief convert the class attribute to an integer.
+	 * 
+	 * @param classAtt
+	 * @return
+	 */
 	private int findNumberClass(String classAtt) {
 		int numClass = 0;
 		switch (classAtt) {
@@ -193,7 +205,6 @@ public class Classifiers {
 	 *            set
 	 * @throws Exception
 	 */
-
 	private void buildSVMmodel(Instances trainSet, Instances testSet)
 			throws Exception, IOException, FileNotFoundException {
 		Evaluation validationSvm = new Evaluation(trainSet);
@@ -214,7 +225,7 @@ public class Classifiers {
 					"\nResults of SVM classifier\n======\n", false));
 
 			// test the unlabeled data and assign them to one class
-			//labeleSVMTestSet(testSet, svmVal);
+			labeleSVMTestSet(testSet, svmVal);
 
 		} catch (FileNotFoundException exp) {
 
@@ -283,6 +294,7 @@ public class Classifiers {
 		writer.close();
 
 	}
+	
 	/**
 	 * \brief Predict label class for test set. 
 	 * 
@@ -293,7 +305,6 @@ public class Classifiers {
 	 * @param classifier
 	 * @throws Exception 
 	 */
-
 	private void labeleSVMTestSet(Instances testSet, LibSVM svmVal)
 			throws Exception, IOException {
 

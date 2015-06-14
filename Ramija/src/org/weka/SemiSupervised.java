@@ -8,6 +8,10 @@ import weka.classifiers.lazy.IBk;
 import weka.core.Instance;
 import weka.core.Instances;
 
+/**
+ * \brief This class tries to classify the test set with a semi supervised method.
+ *
+ */
 public class SemiSupervised {
 
 	private boolean[] used;	///represents the unlabeled (false) and labeled(true) instances of the test set
