@@ -1,7 +1,6 @@
 package org.weka;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+
 
 import weka.core.*;
 import weka.filters.Filter;

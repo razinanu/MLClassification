@@ -57,6 +57,7 @@ public class Classifiers {
 			validationJ48.evaluateModel(cls, trainSet);
 			System.out.println(validationJ48.toSummaryString(
 					"\nResults of J48 classifier\n======\n", false));
+			//validationJ48.evaluateModelOnceAndRecordPrediction(cls, testSet);
 			// save the model
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream("lib/J48.model"));
