@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,7 +110,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a542f53d4e47d6e70a88a5e1e0cbcf879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimating the quality of decision tree classifier based on multi-class logarithmic loss.  <a href="#a542f53d4e47d6e70a88a5e1e0cbcf879">More...</a><br/></td></tr>
 <tr class="separator:a542f53d4e47d6e70a88a5e1e0cbcf879"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff98719fe390488c7d58c877e1c12cb5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1weka_1_1_classifiers.html#aff98719fe390488c7d58c877e1c12cb5">findNumberClass</a> (String classAtt)</td></tr>
-<tr class="memdesc:aff98719fe390488c7d58c877e1c12cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert the class attribute to an integer.  <a href="#aff98719fe390488c7d58c877e1c12cb5">More...</a><br/></td></tr>
+<tr class="memdesc:aff98719fe390488c7d58c877e1c12cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the class attribute to an integer.  <a href="#aff98719fe390488c7d58c877e1c12cb5">More...</a><br/></td></tr>
 <tr class="separator:aff98719fe390488c7d58c877e1c12cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79137d9bb48d18d7ed13af743a278ae7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classorg_1_1weka_1_1_classifiers.html#a79137d9bb48d18d7ed13af743a278ae7">buildSVMmodel</a> (Instances trainSet, Instances testSet)  throws Exception, IOException, FileNotFoundException </td></tr>
 <tr class="memdesc:a79137d9bb48d18d7ed13af743a278ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Building the SVM model to classify the train set.  <a href="#a79137d9bb48d18d7ed13af743a278ae7">More...</a><br/></td></tr>
@@ -126,8 +126,8 @@ Private Member Functions</h2></td></tr>
 <div class="textblock"><p>This class is for using two different machine learning algorithms to classify the sets. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">train</td><td>set </td></tr>
-    <tr><td class="paramname">test</td><td>set </td></tr>
+    <tr><td class="paramname">Instances</td><td>trainSet </td></tr>
+    <tr><td class="paramname">Instances</td><td>testSet </td></tr>
   </table>
   </dd>
 </dl>
@@ -168,8 +168,8 @@ Private Member Functions</h2></td></tr>
 <p>It uses two fold cross validation to classify the train set and build the model. In order to estimate the classification quality, two methods have been used. The multi-class logarithmic loss and the evaluation function from WEKA library.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">train</td><td>set </td></tr>
-    <tr><td class="paramname">test</td><td>set </td></tr>
+    <tr><td class="paramname">Instances</td><td>trainSet </td></tr>
+    <tr><td class="paramname">Instances</td><td>testSet </td></tr>
   </table>
   </dd>
 </dl>
@@ -212,8 +212,8 @@ Private Member Functions</h2></td></tr>
 <p>It uses two fold cross validation to classify the train set and build the model. In order to estimate the classification quality, two methods have been used. The multi-class logarithmic loss and the evaluation function from WEKA library.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">train</td><td>set </td></tr>
-    <tr><td class="paramname">test</td><td>set </td></tr>
+    <tr><td class="paramname">Instances</td><td>trainset </td></tr>
+    <tr><td class="paramname">Instances</td><td>trainset </td></tr>
   </table>
   </dd>
 </dl>
@@ -254,8 +254,8 @@ Private Member Functions</h2></td></tr>
 <p>The two used methods are J48, which is based on decision trees, and Support Vector Machines.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">trainSet</td><td></td></tr>
-    <tr><td class="paramname">testSet</td><td></td></tr>
+    <tr><td class="paramname">Instances</td><td>trainSet </td></tr>
+    <tr><td class="paramname">Instances</td><td>testSet </td></tr>
   </table>
   </dd>
 </dl>
@@ -303,14 +303,8 @@ Private Member Functions</h2></td></tr>
 <p>Estimating the quality of decision tree classifier based on multi-class logarithmic loss. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Classifier</td><td></td></tr>
-    <tr><td class="paramname">train</td><td>set </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">Exception</td><td></td></tr>
+    <tr><td class="paramname">Instances</td><td>trainset </td></tr>
+    <tr><td class="paramname">Classifier</td><td>clsVal </td></tr>
   </table>
   </dd>
 </dl>
@@ -339,14 +333,14 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>convert the class attribute to an integer. </p>
+<p>Convert the class attribute to an integer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">classAtt</td><td></td></tr>
+    <tr><td class="paramname">String</td><td>classAtt </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int numClass </dd></dl>
 
 </div>
 </div>
@@ -383,17 +377,17 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predict label class for test set. </p>
-<p>It uses the decision tree model, which has been build over train set to predict the label for each instance in test set and save it in local directory</p>
+<p>It uses the decision tree model, which has been built over train set to predict the label for each instance in test set and save it in local directory</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">test</td><td>set </td></tr>
-    <tr><td class="paramname">classifier</td><td></td></tr>
+    <tr><td class="paramname">Instances</td><td>trainset </td></tr>
+    <tr><td class="paramname">Classifier</td><td>clsVal </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td></td></tr>
+    <tr><td class="paramname">Exception</td><td>IOException </td></tr>
   </table>
   </dd>
 </dl>
@@ -433,17 +427,17 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Predict label class for test set. </p>
-<p>It uses the SVM model, which has been build over train set to predict the label for each instance in test set and save it in local directory</p>
+<p>It uses the SVM model, which has been built over train set to predict the label for each instance in test set and save it in local directory</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">test</td><td>set </td></tr>
-    <tr><td class="paramname">classifier</td><td></td></tr>
+    <tr><td class="paramname">Instances</td><td>trainset </td></tr>
+    <tr><td class="paramname">LibSVM</td><td>svmVal </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td></td></tr>
+    <tr><td class="paramname">Exception</td><td>IOException </td></tr>
   </table>
   </dd>
 </dl>
@@ -456,7 +450,7 @@ Private Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 22:07:17 for MLClassification by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2015 23:08:16 for MLClassification by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

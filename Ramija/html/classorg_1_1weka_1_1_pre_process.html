@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,8 +117,8 @@ Instances&#160;</td><td class="memItemRight" valign="bottom"><b>newTest</b></td>
 <div class="textblock"><p>This class is for analyzing the train and test sets for selecting an appropriate subset of the attribute. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">train</td><td>set </td></tr>
-    <tr><td class="paramname">test</td><td>set </td></tr>
+    <tr><td class="paramname">Instances</td><td>trainSet </td></tr>
+    <tr><td class="paramname">Instances</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -141,13 +141,7 @@ Instances&#160;</td><td class="memItemRight" valign="bottom"><b>newTest</b></td>
 <p>To have same attribute analyze with PCA both train and test sets must contain same number of attributes. As the test set doesn't contains the class attribute, it adds just a new column "class" with empty value to test set.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">test</td><td>set </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">Exception</td><td></td></tr>
+    <tr><td class="paramname">Instances</td><td>trainSet </td></tr>
   </table>
   </dd>
 </dl>
@@ -182,8 +176,8 @@ Instances&#160;</td><td class="memItemRight" valign="bottom"><b>newTest</b></td>
 <p>convert a set of possibly correlated attributes into a set of values of linearly uncorrelated attributes This process will be done for both train set and test set</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">train</td><td>set </td></tr>
-    <tr><td class="paramname">test</td><td>set </td></tr>
+    <tr><td class="paramname">Instances</td><td>trainSet </td></tr>
+    <tr><td class="paramname">Instances</td><td>testSet </td></tr>
   </table>
   </dd>
 </dl>
@@ -196,7 +190,7 @@ Instances&#160;</td><td class="memItemRight" valign="bottom"><b>newTest</b></td>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 14 2015 22:07:17 for MLClassification by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2015 23:08:16 for MLClassification by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

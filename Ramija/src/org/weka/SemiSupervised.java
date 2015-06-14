@@ -13,9 +13,9 @@ import weka.core.Instances;
  *
  */
 public class SemiSupervised {
-
-	private boolean[] used;	///represents the unlabeled (false) and labeled(true) instances of the test set
 	
+	///represents the unlabeled (false) and labeled(true) instances of the test set
+	private boolean[] used;
 	///the default constructor
 	public SemiSupervised()
 	{
@@ -46,10 +46,6 @@ public class SemiSupervised {
 		
 		while(iter < unlabeled.numInstances())
 		{		
-
-			//System.out.println("iteration " + iter++ + "(count: " + labeled.numInstances() + ")");
-
-
 			IBk classifier = new IBk(5);
 			classifier.buildClassifier(labeled);
 
